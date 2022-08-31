@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.*;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.nobug.checkstyle.databinding.FragmentFirstBinding;
@@ -60,9 +60,10 @@ public class FirstFragment extends Fragment {
      * It is limitation of checkstyle (as checkstyle does not know type hierarchy).
      * Javadoc is valid not declaring FileNotFoundException
      * BUT checkstyle can not distinguish relationship between exceptions.
+     *
      * @param file
      * @throws FileNotFoundException if some problem
-     * @throws IOException if some problem
+     * @throws IOException           if some problem
      */
     public void doSomething8(File file) throws IOException {
         if (file == null) {
@@ -74,8 +75,9 @@ public class FirstFragment extends Fragment {
      * Exact throw type referencing in javadoc even first is parent of second type.
      * It is a limitation of checkstyle (as checkstyle does not know type hierarchy).
      * This javadoc is valid for checkstyle and for javadoc tool.
+     *
      * @param file some file
-     * @throws IOException if some problem
+     * @throws IOException           if some problem
      * @throws FileNotFoundException if file is not found
      */
     public void doSomething9(File file) throws IOException {

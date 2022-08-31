@@ -54,6 +54,12 @@
             <property name="severity" value="error"/>
         </module>
 
+        <!-- 检查数组类型定义的样式 -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- 检查long型定义是否有大写的“L” -->
+        <module name="UpperEll"/>
+
         <!-- 检查常量（用static final修饰的字段）的名称是否遵守命名规约
             format: 定义全局常量的命名规则 -->
         <module name="ConstantName">
@@ -124,6 +130,9 @@
             <property name="severity" value="warning"/>
         </module>
 
+        <!-- 检查在重写了equals方法后是否重写了hashCode方法 -->
+        <module name="EqualsHashCode"/>
+
         <!-- 检查 String 文本的任意组合是否位于 equals（） 比较的左侧 -->
         <module name="EqualsAvoidNull">
             <property name="severity" value="error"/>
@@ -158,7 +167,7 @@
         <!--　检查 Javadocs 是否位于正确的位置，javadoc总是最先声明
          如果放在方法注解和方法之间会报错-->
         <module name="InvalidJavadocPosition">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
         </module>
 
         <!-- 检查方法的javadoc的注释
@@ -167,7 +176,7 @@
             validateThrows: 是否对throws注释的检查
             allowMissingReturnTag: 是否忽略对return注释的检查 -->
         <module name="JavadocMethod">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="accessModifiers" value="public"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="validateThrows" value="true"/>
@@ -177,25 +186,26 @@
 
         <!--　检查方法或构造函数中缺少的 Javadoc 注释 -->
         <module name="MissingJavadocMethod">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="scope" value="public"/>
         </module>
 
         <!--　检查类、枚举、接口和注释接口定义中缺少的 Javadoc 注释 -->
         <module name="MissingJavadocType">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="scope" value="public"/>
         </module>
 
         <!--　检查javadoc注解每行是否有星标，如果没有则报错 -->
         <module name="JavadocMissingLeadingAsterisk">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
         </module>
 
         <!-- 检查类和接口的javadoc 默认不检查author 和version tags
             scope: 可以检查的类的范围，例如：public只能检查public修饰的类，private可以检查所有的类
             tokens: 该属性适用的类型，例如：CLASS_DEF,INTERFACE_DEF -->
         <module name="JavadocType">
+            <property name="severity" value="warning"/>
             <property name="scope" value="public"/>
             <property name="authorFormat" value="\S"/>
             <property name="versionFormat" value="\S"/>
@@ -205,17 +215,18 @@
         <!-- 检查变量是否具有Javadoc注释
             scope: 检查变量的范围，例如：public只能检查public修饰的变量，private可以检查所有的变量 -->
         <module name="JavadocVariable">
+            <property name="severity" value="warning"/>
             <property name="scope" value="public"/>
         </module>
 
         <!--　检查javadoc注解，导星号后面是否至少有一个空格 -->
         <module name="JavadocMissingWhitespaceAfterAsterisk">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
         </module>
 
         <!--　检查javadoc中tag的描述 -->
         <module name="NonEmptyAtclauseDescription">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
         </module>
 
         <!--检查长匿名内部类，指定匿名内部类的最大行数-->
@@ -328,6 +339,9 @@
             <property name="tokens" value="METHOD_DEF,CTOR_DEF"/>
         </module>
 
+        <!-- 在类型转换时，不允许左圆括号右边有空格，也不允许与右圆括号左边有空格 -->
+        <module name="TypecastParenPad" />
+
         <!--　检查代码中的标识符的顺序是否符合《Java Language Specification》中的第8.1.1、8.3.1章节所建议的顺序
             正确的顺序应当如下：
 　　　　    1. public
@@ -379,6 +393,9 @@
         <!--　检查指定标记的周围是否有空格 -->
         <module name="WhitespaceAround"/>
 
+        <!-- 操作符换行策略检查 -->
+        <module name="OperatorWrap"/>
+
         <!-- 检查开关块中冒号前是否没有空格 -->
         <module name="NoWhitespaceBeforeCaseDefaultColon"/>
 
@@ -397,10 +414,10 @@
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
         </module>
 
-        <!--检查方法或构造函数的参数数-->
+        <!-- 方法的参数个数不超过5个。 并且不对构造方法进行检查-->
         <module name="ParameterNumber">
-            <property name="max" value="8"/>
-            <property name="tokens" value="METHOD_DEF,CTOR_DEF"/>
+            <property name="max" value="5"/>
+            <property name="tokens" value="METHOD_DEF"/>
             <property name="severity" value="warning"/>
             <property name="ignoreOverriddenMethods" value="true"/><!--忽略重写方法-->
         </module>
@@ -431,13 +448,6 @@
 　　　　    tokens: 定义检查的类型 -->
         <module name="ParenPad">
             <property name="option" value="nospace"/>
-        </module>
-
-        <!--　检查类型转换的圆括号的填充符策略。也就是，在左圆括号之后和右圆括号之前是否需要有一个空格
-            option: space表示有空格，nospace表示没有空格
-　　　　    tokens: 定义检查的类型 -->
-        <module name="TypecastParenPad">
-            <property name="option" value="space"/>
         </module>
 
         <!-- 限制return语句的数量。默认值为2。可以忽略检查指定的方法（默认忽略equals()方法 -->
@@ -476,6 +486,12 @@
             allowInSwitchCase: 定义是否允许switch case中使用嵌套的代码块 -->
         <module name="AvoidNestedBlocks">
             <property name="allowInSwitchCase" value="true"/>
+        </module>
+
+        <!-- 禁止使用System.out.println -->
+        <module name="Regexp">
+            <property name="format" value="System\.out\.println"/>
+            <property name="illegalPattern" value="true"/>
         </module>
 
     </module>
